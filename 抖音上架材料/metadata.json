@@ -1,0 +1,24 @@
+{
+  "platform": "douyin-mini-game",
+  "finalName": "甜果消除乐园",
+  "softwareFullName": "甜果消除乐园游戏软件 V1.0",
+  "softwareShortName": "甜果消除乐园",
+  "version": "V1.0",
+  "category": "休闲益智 / 消除",
+  "tag": "美食",
+  "keywords": [
+    "甜果",
+    "三消",
+    "消除",
+    "益智",
+    "休闲"
+  ],
+  "intro": "交换甜果完成三消目标，体验轻松愉快的消除玩法。",
+  "detail": "《甜果消除乐园》是一款休闲三消类小游戏。玩家通过交换相邻元素，使三个或更多相同元素连成一线并完成消除。游戏包含棋盘生成、元素交换、匹配检测、消除反馈和分数统计等核心玩法。",
+  "icon": "抖音上架材料/icon-600.png",
+  "status": "可准备提交",
+  "risk": "本地源码来源与美术素材需确认授权，提交前不要使用 Candy Crush 等英文原始品牌文案。",
+  "appId": "",
+  "auditTicket": "",
+  "auditResult": ""
+}
