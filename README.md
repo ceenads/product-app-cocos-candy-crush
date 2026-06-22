@@ -1,5 +1,7 @@
 # Candy crush like game made with Phaser HTML5 game engine
 
+站点地址：https://ceenware.github.io/product-app-cocos-candy-crush/
+
 ## 抖音开放平台
 
 - 仓库：ceenads/product-app-cocos-candy-crush
