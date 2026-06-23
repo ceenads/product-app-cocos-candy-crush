@@ -12,7 +12,7 @@ module GameApp {
 
 		return {
 			scope: {},
-			template: '<div id="gameCanvas"></div>',
+			template: '<div id="gameCanvas" class="game-shell"></div>',
 			link: linkFn
 		}
 	}
@@ -20,4 +20,4 @@ module GameApp {
 	GameDirective.$inject = ['$injector']
 
 	angular.module('GameApp').directive('gameDirective',GameDirective)
-} 
+}

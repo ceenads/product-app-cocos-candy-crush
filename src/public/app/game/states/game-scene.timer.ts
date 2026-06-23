@@ -7,7 +7,9 @@ module GameApp.States{
       
       timer: Phaser.Timer;
       timerEvent: Phaser.TimerEvent;
+      timerLabel: Phaser.Text;
       timerText: Phaser.Text;
+      endedAsGameOver: boolean = false;
 		
 		constructor(game: Phaser.Game) {
 			this.game = game;
@@ -17,23 +19,26 @@ module GameApp.States{
          if(this.timer.running){
             this.timerText.text = this.formatTime(Math.round((this.timerEvent.delay - this.timer.ms) / 1000))
          }
+         else if(this.endedAsGameOver){
+            this.timerText.text = GameApp.I18n.t('gameOver');
+         }
          else{
-            this.timerText.text = "Done";
+            this.timerText.text = GameApp.I18n.t('done');
          }
       }
       
       createTimer() {
          
-         var timerlabel = this.game.add.text(32, 20, "Time:", {
-            font: "Gill Sans Bold",
+         this.timerLabel = this.game.add.text(32, 20, GameApp.I18n.t('time'), {
+            font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
             fill: "white",
             align: "center",
             fontSize: 20
          });
-         timerlabel.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
+         this.timerLabel.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
 
          this.timerText = this.game.add.text(32, 40, "02:00", {
-             font: "Gill Sans Bold",
+             font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
              fill: "white",
              align: "center",
              fontSize: 30
@@ -56,8 +61,18 @@ module GameApp.States{
               var bg = this.game.add.sprite(this.game.world.centerX, -200, 'levelComplete');
               bg.anchor.setTo(0.5, 0.5);
 
+              var completeText = this.game.add.text(this.game.world.centerX, -200, GameApp.I18n.t('levelComplete'), {
+                 font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
+                 fill: "white",
+                 align: "center",
+                 fontSize: 42
+              });
+              completeText.anchor.set(0.5, 0.5);
+              completeText.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
+
               
               var tween = this.game.add.tween(bg).to({ x: this.game.world.centerX, y: this.game.world.centerY }, 3000, Phaser.Easing.Bounce.Out, true);
+              this.game.add.tween(completeText).to({ x: this.game.world.centerX, y: this.game.world.centerY }, 3000, Phaser.Easing.Bounce.Out, true);
               
               tween.onComplete.add(() => {
                  this.changeLevel(levelNumber);
@@ -66,9 +81,20 @@ module GameApp.States{
              
          }
          else{
-            this.timerText.text = "Game over";
+            this.endedAsGameOver = true;
+            this.timerText.text = GameApp.I18n.t('gameOver');
          }
         
+      }
+
+      updateLabels(){
+         if(this.timerLabel){
+            this.timerLabel.text = GameApp.I18n.t('time');
+         }
+
+         if(this.timerText && !this.timer.running){
+            this.timerText.text = this.endedAsGameOver ? GameApp.I18n.t('gameOver') : GameApp.I18n.t('done');
+         }
       }
       
       changeLevel(levelNumber: number){

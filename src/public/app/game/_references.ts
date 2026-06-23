@@ -3,6 +3,7 @@
 
 /// <reference path='module.ts' />
 /// <reference path='index-controller.ts' />
+/// <reference path='i18n.ts' />
 
 /// <reference path='models/chain.ts' />
 /// <reference path='models/tile.ts' />

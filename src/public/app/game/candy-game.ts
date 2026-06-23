@@ -8,6 +8,8 @@ import Menu = GameApp.States.Menu;
 
 class CandyGame {
    constructor(scope, injector) {
+      GameApp.I18n.createSwitcher();
+
       this.game = new Phaser.Game(640, 1136, Phaser.AUTO, 'gameCanvas', {
          create: this.create
       });

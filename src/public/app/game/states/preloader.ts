@@ -9,8 +9,8 @@ module GameApp.States {
          
          var assets = 'app/game/assets/';
          
-         var text = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Loading...", {
-             font: "65px Arial",
+         var text = this.game.add.text(this.game.world.centerX, this.game.world.centerY, GameApp.I18n.t('loading'), {
+             font: "bold 42px Arial, Microsoft YaHei, PingFang SC, sans-serif",
              fill: "#ff0044",
              align: "center"
          });

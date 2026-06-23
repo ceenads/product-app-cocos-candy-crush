@@ -38,8 +38,11 @@ module GameApp.States {
       gameTimer: GameTimer;
       
       score: number;
+      levelLabel: Phaser.Text;
+      levelText: Phaser.Text;
       scoreText: Phaser.Text;
       scoreLabel: Phaser.Text;
+      languageChangeHandler: any;
 
       create() {
 
@@ -71,6 +74,11 @@ module GameApp.States {
          this.initLevel('level'+levelNumber);
          this.beginGame();
 
+         this.languageChangeHandler = () => {
+            this.updateLanguageTexts();
+         };
+         window.addEventListener('candy:languagechange', this.languageChangeHandler);
+
       }
       
       private initScore() {
@@ -84,26 +92,26 @@ module GameApp.States {
       }
       
       private createLevelText(levelNumber){
-         var levelLabel = this.game.add.text(550, 20, "Level:", {
-            font: "Gill Sans Bold",
+         this.levelLabel = this.game.add.text(550, 20, GameApp.I18n.t('level'), {
+            font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
             fill: "white",
             align: "center",
             fontSize: 20
          });
-         levelLabel.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
+         this.levelLabel.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
          
-         var levelText = this.game.add.text(550, 40, ""+levelNumber, {
-            font: "Gill Sans Bold",
+         this.levelText = this.game.add.text(550, 40, ""+levelNumber, {
+            font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
             fill: "white",
             align: "center",
             fontSize: 30
          });
-         levelText.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
+         this.levelText.setShadow(-1, 1, 'rgba(0,0,0,0.5)', 0);
       }
       
       private createScoreText(){
-         this.scoreLabel = this.game.add.text(this.game.world.centerX, 20 , "Score:" , {
-            font: "Gill Sans Bold",
+         this.scoreLabel = this.game.add.text(this.game.world.centerX, 20 , GameApp.I18n.t('score') , {
+            font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
             fill: "white",
             fontSize: 20
          });
@@ -111,7 +119,7 @@ module GameApp.States {
          
          
          this.scoreText = this.game.add.text(this.game.world.centerX, 40 , ""+this.score , {
-            font: "Gill Sans Bold",
+            font: "Gill Sans Bold, Arial, Microsoft YaHei, PingFang SC, sans-serif",
             fill: "white",
             fontSize: 30
          });
@@ -121,6 +129,20 @@ module GameApp.States {
       
       private updateScoreText(){
          this.scoreText.text = ""+this.score;
+      }
+
+      private updateLanguageTexts(){
+         if (this.levelLabel) {
+            this.levelLabel.text = GameApp.I18n.t('level');
+         }
+
+         if (this.scoreLabel) {
+            this.scoreLabel.text = GameApp.I18n.t('score');
+         }
+
+         if (this.gameTimer) {
+            this.gameTimer.updateLabels();
+         }
       }
 
       private initLevel(levelName: string) {
@@ -515,6 +537,13 @@ module GameApp.States {
          scoreLabel.z = 300;
          
          this.game.add.tween(scoreLabel).to({ alpha: 0 }, 700, Phaser.Easing.Linear.None, true);
+      }
+
+      shutdown() {
+         if (this.languageChangeHandler) {
+            window.removeEventListener('candy:languagechange', this.languageChangeHandler);
+            this.languageChangeHandler = null;
+         }
       }
 
    }
